@@ -27,124 +27,84 @@ export const links = {
 }
 
 /**
- * Camadas do hambúrguer "explodido", de cima para baixo.
- * `depth` controla o parallax (quanto maior, mais a camada se afasta no eixo Z).
- * `offset` é o deslocamento vertical em vh quando a explosão está no auge.
- * Basta substituir `src` pelo PNG/WebP final recortado — o resto continua funcionando.
+ * Vídeo do hero. A câmera parte do hambúrguer inteiro, mergulha pelas camadas
+ * (pão → molho → cebola → alface → tomate → queijo → blend → base) e, em `cutAt`,
+ * corta de volta para o plano aberto — é nesse corte que o CTA aparece.
+ *
+ * Trocar o vídeo: substitua o arquivo, ajuste `authoredDuration`/`cutAt` e as
+ * janelas de `ingredients` (tudo em segundos do vídeo original).
+ *
+ * Reencode recomendado para scrub suave (GOP curto = seek barato):
+ *   ffmpeg -i entrada.mp4 -an -c:v libx264 -crf 23 -g 6 -keyint_min 6 \
+ *          -sc_threshold 0 -preset slow -movflags +faststart hero-burger.mp4
  */
-export const burgerLayers = [
+export const heroVideo = {
+  src: '/assets/video/hero-burger.mp4',
+  poster: '/assets/video/hero-burger-poster.jpg',
+  authoredDuration: 10,
+  cutAt: 9.05,
+}
+
+/**
+ * Legendas que acompanham o mergulho da câmera. `from`/`to` são os segundos do
+ * vídeo em que aquele ingrediente está no centro do quadro; o componente
+ * converte para a fração da timeline, então o sincronismo sobrevive a pequenas
+ * diferenças de duração no reencode.
+ */
+export const ingredients = [
   {
     id: 'bun-top',
-    src: '/assets/burger/bun-top.svg',
-    alt: 'Pão brioche superior com gergelim',
     label: 'Pão brioche artesanal',
-    detail: 'Assado todo dia, com gergelim e brilho de manteiga.',
-    top: 0,
-    height: 31.25,
-    depth: 1,
-    offset: -34,
-    rotate: -5,
-    tilt: 26,
+    detail: 'Assado todo dia, com gergelim e o molho da casa por cima.',
+    from: 2.5,
+    to: 4.3,
     highlight: true,
   },
   {
     id: 'onion',
-    src: '/assets/burger/onion.svg',
-    alt: 'Anéis de cebola roxa',
     label: 'Cebola roxa em anéis',
     detail: 'Cortada na hora, crocante e levemente adocicada.',
-    top: 21.35,
-    height: 20.83,
-    depth: 0.76,
-    offset: -22,
-    rotate: 6,
-    tilt: 22,
+    from: 4.4,
+    to: 5.3,
   },
   {
     id: 'lettuce',
-    src: '/assets/burger/lettuce.svg',
-    alt: 'Folhas de alface crocante',
-    label: 'Alface americana crocante',
+    label: 'Alface crocante',
     detail: 'Lavada folha a folha, sempre gelada.',
-    top: 30.42,
-    height: 22.92,
-    depth: 0.58,
-    offset: -13,
-    rotate: -7,
-    tilt: 18,
+    from: 5.4,
+    to: 6.1,
   },
   {
     id: 'tomato',
-    src: '/assets/burger/tomato.svg',
-    alt: 'Rodelas de tomate fresco',
     label: 'Tomate fresco em rodelas',
     detail: 'Selecionado no ponto certo de maturação.',
-    top: 42.08,
-    height: 19.79,
-    depth: 0.4,
-    offset: -4,
-    rotate: 4,
-    tilt: 14,
+    from: 6.2,
+    to: 6.9,
   },
   {
     id: 'cheese',
-    src: '/assets/burger/cheese.svg',
-    alt: 'Queijo derretido escorrendo',
     label: 'Queijo derretido na hora',
     detail: 'Derretido na chapa em cima do blend quente.',
-    top: 51.88,
-    height: 23.96,
-    depth: 0.24,
-    offset: 6,
-    rotate: -4,
-    tilt: 10,
+    from: 7,
+    to: 7.6,
     highlight: true,
   },
   {
     id: 'patty',
-    src: '/assets/burger/patty.svg',
-    alt: 'Blend artesanal 100% Angus',
     label: 'Blend 100% Angus',
-    detail: '180g de carne artesanal selada na chapa quente.',
-    top: 64.17,
-    height: 21.88,
-    depth: 0.1,
-    offset: 18,
-    rotate: 5,
-    tilt: 6,
+    detail: '180g de carne artesanal selada na chapa.',
+    from: 7.7,
+    to: 8.4,
     highlight: true,
   },
   {
     id: 'bun-bottom',
-    src: '/assets/burger/bun-bottom.svg',
-    alt: 'Base do pão brioche',
     label: 'Base selada na manteiga',
     detail: 'Tostada na chapa para segurar todo o recheio.',
-    top: 77.29,
-    height: 19.79,
-    depth: 0,
-    offset: 30,
-    rotate: -3,
-    tilt: 0,
+    from: 8.5,
+    to: 9,
   },
 ]
-
-/** Proporção do palco de camadas (mesma do arquivo burger-full). */
-export const burgerStage = { width: 800, height: 960 }
-
-/** Imagem única usada no fallback (reduced motion / dispositivo fraco). */
-export const burgerStatic = '/assets/burger/burger-full.svg'
-
-/**
- * Vídeo ambiente opcional atrás do hero.
- * Ative com `enabled: true` depois de conferir o corte final do arquivo.
- */
-export const heroVideo = {
-  enabled: false,
-  src: '/assets/video/hero-loop.mp4',
-  poster: '/assets/burger/burger-full.svg',
-  opacity: 0.28,
-}
 
 export const menu = [
   {

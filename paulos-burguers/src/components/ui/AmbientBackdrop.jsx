@@ -1,10 +1,14 @@
 import { useMemo } from 'react'
 
 /**
- * Fundo cinematográfico: gradiente radial laranja, linhas curvas douradas,
- * respingos de molho e partículas. Tudo em SVG/CSS — zero requisição extra.
+ * Cenário da marca em SVG/CSS — zero requisição extra.
+ *
+ * `layer="base"`  fica ATRÁS do vídeo: cor de fundo, glow radial, linhas
+ *                 douradas, meia-tinta e respingos.
+ * `layer="glow"`  fica NA FRENTE do vídeo (blend `screen`): só o calor laranja
+ *                 e as partículas, devolvendo a cor da marca à cena filmada.
  */
-export function AmbientBackdrop({ particles = 18, animated = true }) {
+export function AmbientBackdrop({ particles = 18, animated = true, layer = 'base' }) {
   const dust = useMemo(
     () =>
       Array.from({ length: particles }, (_, i) => ({
@@ -18,6 +22,37 @@ export function AmbientBackdrop({ particles = 18, animated = true }) {
       })),
     [particles]
   )
+
+  if (layer === 'glow') {
+    return (
+      <div
+        className="pointer-events-none absolute inset-0 overflow-hidden mix-blend-screen"
+        aria-hidden="true"
+      >
+        <div className="absolute inset-0 bg-radial-flame opacity-70" />
+        {animated && (
+          <div className="absolute inset-0">
+            {dust.map((p) => (
+              <span
+                key={p.id}
+                className="absolute rounded-full animate-drift"
+                style={{
+                  left: p.left,
+                  bottom: p.bottom,
+                  width: p.size,
+                  height: p.size,
+                  animationDuration: p.duration,
+                  animationDelay: p.delay,
+                  backgroundColor: p.gold ? '#d4af37' : '#ff9d2e',
+                  boxShadow: `0 0 ${p.size * 3}px ${p.gold ? '#d4af37' : '#ff9d2e'}`,
+                }}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    )
+  }
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
@@ -70,27 +105,6 @@ export function AmbientBackdrop({ particles = 18, animated = true }) {
         <circle cx="46" cy="156" r="9" />
       </svg>
 
-      {/* Partículas flutuantes */}
-      {animated && (
-        <div className="absolute inset-0">
-          {dust.map((p) => (
-            <span
-              key={p.id}
-              className="absolute rounded-full animate-drift"
-              style={{
-                left: p.left,
-                bottom: p.bottom,
-                width: p.size,
-                height: p.size,
-                animationDuration: p.duration,
-                animationDelay: p.delay,
-                backgroundColor: p.gold ? '#d4af37' : '#ff9d2e',
-                boxShadow: `0 0 ${p.size * 3}px ${p.gold ? '#d4af37' : '#ff9d2e'}`,
-              }}
-            />
-          ))}
-        </div>
-      )}
     </div>
   )
 }

@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 170" width="800" height="170" role="img" aria-hidden="true"><defs><linearGradient id="sc" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#fff3cf"/><stop offset="100%" stop-color="#f0c477"/></linearGradient><filter id="scS" x="-25%" y="-25%" width="150%" height="160%">
-     <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#000" flood-opacity="0.4"/></filter></defs><g filter="url(#scS)"><path d="M70 20 C70 20 130 62 200 58 C270 54 300 96 360 92
-      C420 88 450 40 520 52 C590 64 620 30 700 34 L720 62
-      C720 110 640 128 560 122 C500 118 470 148 400 144
-      C330 140 300 112 240 116 C160 122 80 96 70 62 Z" fill="url(#sc)"/></g></svg>

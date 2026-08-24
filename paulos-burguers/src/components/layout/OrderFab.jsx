@@ -6,10 +6,23 @@ export function OrderFab() {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > window.innerHeight * 2.6)
+    // Amarrado ao fim do hero, e não a um múltiplo fixo da tela: a distância
+    // do pin pode mudar sem que este atalho volte a cobrir o CTA do hero.
+    const onScroll = () => {
+      const hero = document.getElementById('hero')
+      setVisible(
+        hero
+          ? hero.getBoundingClientRect().bottom <= 48
+          : window.scrollY > window.innerHeight
+      )
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
   }, [])
 
   return (

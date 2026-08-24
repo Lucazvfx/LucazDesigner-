@@ -25,10 +25,8 @@
       rel="stylesheet"
     />
 
-    <!-- As camadas do hero entram no viewport imediatamente: pré-carregar evita "pop-in" no primeiro scroll -->
-    <link rel="preload" as="image" href="/assets/burger/bun-top.svg" fetchpriority="high" />
-    <link rel="preload" as="image" href="/assets/burger/patty.svg" />
-    <link rel="preload" as="image" href="/assets/burger/bun-bottom.svg" />
+    <!-- O poster cobre o hero enquanto o vídeo carrega: pré-carregar evita o flash preto -->
+    <link rel="preload" as="image" href="/assets/video/hero-burger-poster.jpg" fetchpriority="high" />
   </head>
   <body class="bg-coffee-800">
     <div id="root"></div>

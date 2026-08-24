@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 190" width="800" height="190" role="img" aria-hidden="true"><defs><linearGradient id="bb" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#dfa254"/><stop offset="60%" stop-color="#bb7a34"/>
-      <stop offset="100%" stop-color="#82501e"/></linearGradient><filter id="bbS" x="-25%" y="-25%" width="150%" height="160%">
-     <feDropShadow dx="0" dy="20" stdDeviation="16" flood-color="#000" flood-opacity="0.6"/></filter></defs><g filter="url(#bbS)">
-     <path d="M56 34 C56 34 160 8 400 8 C640 8 744 34 744 34 L744 88
-              C744 132 620 158 400 158 C180 158 56 132 56 88 Z" fill="url(#bb)"/>
-     <ellipse cx="400" cy="34" rx="344" ry="24" fill="#efd0a0"/>
-     <ellipse cx="400" cy="36" rx="320" ry="18" fill="#fbead0" opacity="0.7"/>
-   </g></svg>
