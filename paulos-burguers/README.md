@@ -47,7 +47,7 @@ src/
   lib/gsap.js             # registro único do ScrollTrigger + defaults de performance
   hooks/
     useReducedMotion.js   # prefers-reduced-motion (reativo)
-    useLowPerformance.js  # heurística de aparelho fraco
+    useConstrainedDevice.js # economia de dados / aparelho de entrada
     useSectionReveal.js   # cascata de [data-reveal] nas seções
   components/
     hero/
@@ -85,9 +85,12 @@ Uma barra fina no rodapé do hero mostra o progresso do ato.
 
 ### Fallback
 
-Com `prefers-reduced-motion: reduce` **ou** aparelho fraco (`deviceMemory <= 4` /
-`hardwareConcurrency <= 4` em tela pequena ou touch, ou `saveData`), o `<video>` nem chega ao
-DOM — **nenhum byte de vídeo é baixado**. O hero vira uma tela única com o frame do sanduíche
+Com `prefers-reduced-motion: reduce` **ou** aparelho restrito (`saveData` ligado, ou
+`deviceMemory <= 2`), o `<video>` nem chega ao DOM — **nenhum byte de vídeo é baixado**.
+
+> Não volte a usar `hardwareConcurrency` nesse critério: o Safari do iPhone reporta 4 núcleos,
+> então qualquer regra baseada nisso desliga a animação em todo iPhone. Celular moderno aguenta
+> o pin — foi assim que a animação ficou desligada no celular por um commit inteiro. O hero vira uma tela única com o frame do sanduíche
 montado (o mesmo poster), animação sutil de flutuação, resumo dos ingredientes e o CTA sempre
 visível. A decisão está em `staticMode`, dentro de `ExplodedBurgerHero`.
 
@@ -120,7 +123,7 @@ exatamente, e afastá-las no eixo Y produz o explodido sem borda visível.
 > O recorte por luminância deixa as partes escuras translúcidas. Estas imagens só
 > funcionam sobre fundo escuro — em fundo claro a carne e a base do pão vazam.
 
-Com movimento reduzido ou aparelho fraco: sem pin, sanduíche montado e as camadas
+Com movimento reduzido ou aparelho restrito: sem pin, sanduíche montado e as camadas
 viram uma lista simples.
 
 Para regerar as camadas a partir de outro vídeo, o script de recorte está em
