@@ -1,0 +1,63 @@
+name: Publicar no GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - claude/paulos-burguers-landing-yt0kzg
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Uma publicação por vez; a mais recente vence.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: paulos-burguers/package-lock.json
+
+      - name: Instalar dependências
+        working-directory: paulos-burguers
+        run: npm ci
+
+      - name: Build da landing page
+        working-directory: paulos-burguers
+        run: npm run build
+
+      - name: Montar o site
+        run: |
+          mkdir -p site/portfolio
+          # Landing page na raiz
+          cp -r paulos-burguers/dist/. site/
+          # Portfólio antigo continua no ar, num subcaminho próprio
+          cp lucas.html site/portfolio/
+          cp -r css js assets site/portfolio/
+          # Sem isso o Pages passa o site pelo Jekyll e descarta arquivos com "_"
+          touch site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -3,6 +3,12 @@
  * Trocar textos, preços, unidades e links aqui — nenhum componente tem conteúdo hardcoded.
  */
 
+/**
+ * Caminhos de asset são RELATIVOS de propósito (`assets/...`, sem barra inicial),
+ * combinando com `base: './'` no Vite. É o que permite servir o mesmo build na
+ * raiz de um domínio e num subcaminho como o do GitHub Pages
+ * (lucazvfx.github.io/LucazDesigner-/) sem reconfigurar nada.
+ */
 export const brand = {
   name: "Paulo's Burguers",
   tagline: 'O melhor burguer está aqui!',
@@ -11,7 +17,7 @@ export const brand = {
   state: 'RO',
   phone: '(69) 98444-3171',
   phoneRaw: '5569984443171',
-  logo: '/assets/brand/logo.png',
+  logo: 'assets/brand/logo.png',
 }
 
 export const links = {
@@ -39,8 +45,8 @@ export const links = {
  *          -sc_threshold 0 -preset slow -movflags +faststart hero-burger.mp4
  */
 export const heroVideo = {
-  src: '/assets/video/hero-burger.mp4',
-  poster: '/assets/video/hero-burger-poster.jpg',
+  src: 'assets/video/hero-burger.mp4',
+  poster: 'assets/video/hero-burger-poster.jpg',
   authoredDuration: 10,
   cutAt: 9.05,
 }
@@ -112,7 +118,7 @@ export const menu = [
     name: 'Double Cheese',
     description: 'Dois blends de 120g, cheddar duplo derretido na chapa e maionese da casa no pão brioche.',
     price: 34.9,
-    image: '/assets/menu/double-cheese.svg',
+    image: 'assets/menu/double-cheese.svg',
     badge: 'Mais pedido',
   },
   {
@@ -120,7 +126,7 @@ export const menu = [
     name: 'Bacon Supremo',
     description: 'Blend 180g, bacon caramelizado, queijo prato e cebola crispy. O clássico que virou tradição.',
     price: 38.9,
-    image: '/assets/menu/bacon-supremo.svg',
+    image: 'assets/menu/bacon-supremo.svg',
     badge: 'Campeão da casa',
   },
   {
@@ -128,7 +134,7 @@ export const menu = [
     name: "Paulo's Signature",
     description: 'Blend Angus 200g, queijo brie, geleia de pimenta artesanal e rúcula fresca.',
     price: 44.9,
-    image: '/assets/menu/paulos-signature.svg',
+    image: 'assets/menu/paulos-signature.svg',
     badge: 'Since 2017',
   },
   {
@@ -136,7 +142,7 @@ export const menu = [
     name: 'Smash Duplo',
     description: 'Dois smashes prensados na chapa, cheddar americano, picles e molho secreto.',
     price: 29.9,
-    image: '/assets/menu/smash-duplo.svg',
+    image: 'assets/menu/smash-duplo.svg',
     badge: null,
   },
   {
@@ -144,7 +150,7 @@ export const menu = [
     name: 'Frango Crocante',
     description: 'Filé de frango empanado na hora, maionese defumada, alface americana e tomate.',
     price: 32.9,
-    image: '/assets/menu/frango-crocante.svg',
+    image: 'assets/menu/frango-crocante.svg',
     badge: null,
   },
   {
@@ -152,7 +158,7 @@ export const menu = [
     name: 'Combo Família',
     description: '4 burguers artesanais, porção de fritas grande e 2 refrigerantes de 1L.',
     price: 129.9,
-    image: '/assets/menu/combo-familia.svg',
+    image: 'assets/menu/combo-familia.svg',
     badge: 'Melhor custo',
   },
 ]

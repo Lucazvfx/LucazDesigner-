@@ -20,6 +20,25 @@ npm run build    # gera dist/
 npm run preview  # serve o build
 ```
 
+## Publicando
+
+O deploy é automático: `.github/workflows/deploy-pages.yml` builda e publica no GitHub Pages
+a cada push. Para ligar da primeira vez, no repositório: **Settings → Pages → Source: GitHub
+Actions**. A partir daí o site sai em:
+
+- `https://lucazvfx.github.io/LucazDesigner-/` — a landing page
+- `https://lucazvfx.github.io/LucazDesigner-/portfolio/lucas.html` — o portfólio antigo
+
+O workflow dispara em `main` e no branch da landing; depois do merge dá para remover o branch
+da lista de gatilhos.
+
+### Por que os caminhos de asset são relativos
+
+No Pages o site fica sob `/LucazDesigner-/`, então `/assets/...` apontaria para fora do site.
+Por isso `vite.config.js` usa `base: './'` e `src/config/site.js` guarda `assets/...` sem barra
+inicial — o mesmo build serve tanto na raiz de um domínio (Vercel, Netlify, domínio próprio)
+quanto num subcaminho, sem reconfigurar nada.
+
 ## Estrutura
 
 ```
