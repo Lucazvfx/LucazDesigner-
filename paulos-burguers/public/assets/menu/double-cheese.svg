@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="640" height="480" role="img" aria-hidden="true">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="70%">
+      <stop offset="0%" stop-color="#f5821f" stop-opacity="0.45"/>
+      <stop offset="60%" stop-color="#d4af37" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#120a05" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0bd74"/><stop offset="100%" stop-color="#b0702c"/>
+    </linearGradient>
+    <linearGradient id="meat" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#70401f"/><stop offset="100%" stop-color="#361a09"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="480" fill="#1a120b"/>
+  <rect width="640" height="480" fill="url(#bg)"/>
+  <g transform="translate(320 250)">
+    <ellipse cy="132" rx="190" ry="26" fill="#000" opacity="0.45"/>
+    <path d="M-170 -18 C-170 -122 170 -122 170 -18 Z" fill="url(#bun)"/>
+    <ellipse cy="-18" rx="170" ry="16" fill="#c07f36"/>
+    <path d="M-168 6 C-120 30 -60 -8 0 14 C60 36 120 -4 168 12 L164 34 C110 54 40 30 -6 44 C-70 62 -130 40 -164 28 Z" fill="#63a92f"/>
+    <rect x="-162" y="42" width="324" height="46" rx="23" fill="url(#meat)"/>
+    <path d="M-158 96 C-158 96 -120 130 0 130 C120 130 158 96 158 96 Z" fill="#c8842f"/>
+    <ellipse cy="96" rx="160" ry="14" fill="#e6b26a"/>
+  </g>
+</svg>

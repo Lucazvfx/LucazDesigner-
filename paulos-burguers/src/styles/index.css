@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-coffee-800 font-body text-white/80 antialiased;
+    overflow-x: hidden;
+  }
+
+  /* O pin do ScrollTrigger é incompatível com smooth-scroll nativo em alguns
+     navegadores: o próprio JS desliga quando o hero está ativo. */
+  html.is-pinning {
+    scroll-behavior: auto;
+  }
+
+  ::selection {
+    @apply bg-flame-500 text-coffee-900;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-flame-400 ring-offset-2 ring-offset-coffee-800;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Título de impacto com textura "grunge" — a fonte Rubik Dirt já traz o
+     desgaste; o overlay de ruído reforça sem custo de imagem. */
+  .display-title {
+    @apply font-display uppercase leading-[0.92] tracking-tight;
+    text-wrap: balance;
+  }
+
+  .heading-title {
+    @apply font-heading uppercase leading-[0.95] tracking-wide;
+    text-wrap: balance;
+  }
+
+  .text-flame-gradient {
+    @apply bg-gradient-to-b from-flame-400 via-flame-500 to-flame-600 bg-clip-text text-transparent;
+  }
+
+  .text-gold-gradient {
+    @apply bg-gold-sheen bg-clip-text text-transparent;
+    background-size: 200% auto;
+  }
+
+  .surface-card {
+    @apply rounded-3xl border border-white/[0.07] bg-white/[0.035] backdrop-blur-sm;
+  }
+
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.16;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Camadas do hero: transform-only + GPU hint = 60fps no pin */
+  .burger-layer {
+    will-change: transform, opacity;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+  }
+}
