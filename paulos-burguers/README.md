@@ -164,6 +164,9 @@ reais de cada produto antes de publicar.
 
 ## Pendências antes de publicar
 
+- **`<meta name="robots" content="noindex, nofollow">` no `index.html`**: está lá de propósito
+  enquanto isto é uma demo com a marca do cliente. Remova ao publicar no domínio oficial.
+
 - `links.playStore` e `links.appStore` estão com placeholder — colocar as URLs reais das lojas.
 - `socialProof.quotes` traz depoimentos de exemplo: substituir por avaliações reais e autorizadas.
 - Preços e itens do `menu` são exemplos e precisam bater com o cardápio vigente.
