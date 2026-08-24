@@ -112,13 +112,81 @@ export const ingredients = [
   },
 ]
 
+/**
+ * Camadas recortadas de um frame do vídeo do hero. O fundo de estúdio é preto,
+ * então o alpha saiu por luminância, e o corte entre camadas seguiu a linha mais
+ * escura da separação em vez de uma reta — por isso as bordas não aparecem.
+ *
+ * `left/top/width/height` são a caixa original em porcentagem do quadro: com esses
+ * valores as camadas remontam exatamente a foto, e afastá-las no eixo Y é o que
+ * produz o explodido.
+ *
+ * O recorte por luminância deixa as partes escuras translúcidas — estas imagens
+ * só funcionam sobre fundo escuro.
+ */
+export const burgerAnatomy = {
+  frame: { width: 871, height: 720 },
+  layers: [
+    {
+      id: 'bun-top',
+      src: 'assets/burger/bun-top.png',
+      label: 'Pão brioche + molho da casa',
+      detail: 'Assado no dia, com gergelim e o molho especial.',
+      left: 0.0,
+      top: 1.389,
+      width: 74.282,
+      height: 30.0,
+    },
+    {
+      id: 'greens',
+      src: 'assets/burger/greens.png',
+      label: 'Cebola roxa e alface',
+      detail: 'Cortadas na hora, crocantes e geladas.',
+      left: 0.0,
+      top: 28.472,
+      width: 78.071,
+      height: 21.944,
+    },
+    {
+      id: 'tomato',
+      src: 'assets/burger/tomato.png',
+      label: 'Tomate fresco',
+      detail: 'Selecionado no ponto certo de maturação.',
+      left: 18.599,
+      top: 47.917,
+      width: 56.716,
+      height: 13.472,
+    },
+    {
+      id: 'patty',
+      src: 'assets/burger/patty.png',
+      label: 'Blend Angus com queijo',
+      detail: '180g selados na chapa, queijo derretido por cima.',
+      left: 16.648,
+      top: 59.167,
+      width: 67.509,
+      height: 20.417,
+    },
+    {
+      id: 'bun-bottom',
+      src: 'assets/burger/bun-bottom.png',
+      label: 'Base selada na manteiga',
+      detail: 'Tostada na chapa para segurar todo o recheio.',
+      left: 8.152,
+      top: 77.778,
+      width: 73.364,
+      height: 17.917,
+    },
+  ],
+}
+
 export const menu = [
   {
     id: 'double-cheese',
     name: 'Double Cheese',
     description: 'Dois blends de 120g, cheddar duplo derretido na chapa e maionese da casa no pão brioche.',
     price: 34.9,
-    image: 'assets/menu/double-cheese.svg',
+    image: 'assets/menu/double-cheese.jpg',
     badge: 'Mais pedido',
   },
   {
@@ -126,7 +194,7 @@ export const menu = [
     name: 'Bacon Supremo',
     description: 'Blend 180g, bacon caramelizado, queijo prato e cebola crispy. O clássico que virou tradição.',
     price: 38.9,
-    image: 'assets/menu/bacon-supremo.svg',
+    image: 'assets/menu/bacon-supremo.jpg',
     badge: 'Campeão da casa',
   },
   {
@@ -134,7 +202,7 @@ export const menu = [
     name: "Paulo's Signature",
     description: 'Blend Angus 200g, queijo brie, geleia de pimenta artesanal e rúcula fresca.',
     price: 44.9,
-    image: 'assets/menu/paulos-signature.svg',
+    image: 'assets/menu/paulos-signature.jpg',
     badge: 'Since 2017',
   },
   {
@@ -142,7 +210,7 @@ export const menu = [
     name: 'Smash Duplo',
     description: 'Dois smashes prensados na chapa, cheddar americano, picles e molho secreto.',
     price: 29.9,
-    image: 'assets/menu/smash-duplo.svg',
+    image: 'assets/menu/smash-duplo.jpg',
     badge: null,
   },
   {
@@ -150,7 +218,7 @@ export const menu = [
     name: 'Frango Crocante',
     description: 'Filé de frango empanado na hora, maionese defumada, alface americana e tomate.',
     price: 32.9,
-    image: 'assets/menu/frango-crocante.svg',
+    image: 'assets/menu/frango-crocante.jpg',
     badge: null,
   },
   {
@@ -158,7 +226,7 @@ export const menu = [
     name: 'Combo Família',
     description: '4 burguers artesanais, porção de fritas grande e 2 refrigerantes de 1L.',
     price: 129.9,
-    image: 'assets/menu/combo-familia.svg',
+    image: 'assets/menu/combo-familia.jpg',
     badge: 'Melhor custo',
   },
 ]
@@ -215,6 +283,7 @@ export const socialProof = {
 export const navItems = [
   { id: 'hero', label: 'Início' },
   { id: 'cardapio', label: 'Cardápio' },
+  { id: 'anatomia', label: 'Anatomia' },
   { id: 'unidades', label: 'Unidades' },
   { id: 'comunidade', label: 'Comunidade' },
 ]

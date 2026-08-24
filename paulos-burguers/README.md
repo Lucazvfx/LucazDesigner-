@@ -53,12 +53,13 @@ src/
     hero/
       ExplodedBurgerHero.jsx  # scrub do vídeo + timeline em 3 atos
       IngredientCaptions.jsx  # legenda do ingrediente em cena (uma por vez)
-    sections/               # cardápio, unidades, prova social
+    sections/               # cardápio, anatomia, unidades, prova social
     layout/                 # navbar, rodapé, atalho fixo de pedido
     ui/                     # backdrop ambiente, badges das lojas, título de seção
 public/assets/
   brand/                  # logo recortado do emblema oficial
-  menu/                   # imagens dos cards (SVG placeholder)
+  burger/                 # camadas recortadas do vídeo, com alpha (seção Anatomia)
+  menu/                   # fotos dos cards (frames do vídeo — ver Pendências)
   video/                  # vídeo do hero + frame usado como poster/fallback
 ```
 
@@ -103,6 +104,28 @@ visível. A decisão está em `staticMode`, dentro de `ExplodedBurgerHero`.
   `document.fonts.ready` e no `load`.
 - GSAP sai em chunk separado no build.
 
+## A seção Anatomia
+
+`AnatomySection` fixa a seção por 200% da altura da tela e afasta as cinco camadas
+do sanduíche conforme o scroll, com uma legenda por camada — laterais alternadas no
+desktop (viram um diagrama), uma de cada vez no mobile.
+
+As camadas são **recortes fotográficos de um frame do próprio vídeo do hero**, não
+ilustrações. O fundo do estúdio é preto puro, então o alpha saiu por luminância; e o
+corte entre camadas segue a linha mais escura de cada separação em vez de uma reta,
+que atravessaria alface e molho. Por isso, remontadas nas coordenadas originais
+(`left/top/width/height` em % do quadro, em `burgerAnatomy`) elas reproduzem a foto
+exatamente, e afastá-las no eixo Y produz o explodido sem borda visível.
+
+> O recorte por luminância deixa as partes escuras translúcidas. Estas imagens só
+> funcionam sobre fundo escuro — em fundo claro a carne e a base do pão vazam.
+
+Com movimento reduzido ou aparelho fraco: sem pin, sanduíche montado e as camadas
+viram uma lista simples.
+
+Para regerar as camadas a partir de outro vídeo, o script de recorte está em
+`scripts/slice-layers.py` (ajuste `WINDOWS` para as janelas de separação do novo frame).
+
 ## Trocando os assets
 
 Tudo é dirigido por `src/config/site.js` — não há conteúdo fixo nos componentes.
@@ -132,11 +155,15 @@ As janelas são convertidas para fração da timeline, então pequenas diferenç
 reencode não desalinham o sincronismo.
 
 **Fotos do cardápio.** Troque os arquivos de `public/assets/menu/` (proporção 4:3) e o campo
-`image` de cada item em `menu`.
+`image` de cada item em `menu`. As atuais são frames do vídeo do hero, escolhidos em momentos
+diferentes para não ficarem iguais — mas são **o mesmo sanduíche**, então precisam virar fotos
+reais de cada produto antes de publicar.
 
 ## Pendências antes de publicar
 
 - `links.playStore` e `links.appStore` estão com placeholder — colocar as URLs reais das lojas.
 - `socialProof.quotes` traz depoimentos de exemplo: substituir por avaliações reais e autorizadas.
 - Preços e itens do `menu` são exemplos e precisam bater com o cardápio vigente.
+- As fotos dos cards são frames do vídeo do hero (o mesmo sanduíche em recortes diferentes):
+  substituir por fotos reais de cada item.
 - Conferir os horários em `locations` (baseados no post de "novo horário de funcionamento").
