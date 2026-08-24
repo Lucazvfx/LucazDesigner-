@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { gsap, ScrollTrigger } from '../../lib/gsap'
 import { useIsomorphicLayoutEffect } from '../../hooks/useIsomorphicLayoutEffect'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
-import { useLowPerformance } from '../../hooks/useLowPerformance'
+import { useConstrainedDevice } from '../../hooks/useConstrainedDevice'
 import { burgerAnatomy } from '../../config/site'
 import { SectionHeading } from '../ui/SectionHeading'
 
@@ -25,8 +25,8 @@ export function AnatomySection() {
   const labelRefs = useRef([])
 
   const prefersReducedMotion = useReducedMotion()
-  const isLowPerf = useLowPerformance()
-  const staticMode = prefersReducedMotion || isLowPerf
+  const isConstrained = useConstrainedDevice()
+  const staticMode = prefersReducedMotion || isConstrained
 
   useIsomorphicLayoutEffect(() => {
     if (staticMode) return

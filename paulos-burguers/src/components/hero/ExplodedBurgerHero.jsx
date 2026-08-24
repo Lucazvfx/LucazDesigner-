@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { gsap, ScrollTrigger } from '../../lib/gsap'
 import { useIsomorphicLayoutEffect } from '../../hooks/useIsomorphicLayoutEffect'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
-import { useLowPerformance } from '../../hooks/useLowPerformance'
+import { useConstrainedDevice } from '../../hooks/useConstrainedDevice'
 import { brand, heroVideo, ingredients } from '../../config/site'
 import { AmbientBackdrop } from '../ui/AmbientBackdrop'
 import { StoreBadges } from '../ui/StoreBadges'
@@ -84,29 +84,44 @@ export function ExplodedBurgerHero() {
   const durationRef = useRef(heroVideo.authoredDuration)
 
   const prefersReducedMotion = useReducedMotion()
-  const isLowPerf = useLowPerformance()
+  const isConstrained = useConstrainedDevice()
 
   // Fallback: sem pin, sem vídeo — só o frame do sanduíche montado, flutuando.
-  const staticMode = prefersReducedMotion || isLowPerf
+  const staticMode = prefersReducedMotion || isConstrained
 
   // Prepara o vídeo para receber seeks: guarda a duração real e destrava o
-  // decodificador no iOS, que só libera seek depois de um play().
+  // decodificador, que no iOS só começa a bufferizar depois de um play().
   useIsomorphicLayoutEffect(() => {
     const video = videoRef.current
     if (staticMode || !video) return
+
+    const prime = () => {
+      // muted + playsInline tornam o play automático permitido; se ainda assim
+      // for barrado, o toque abaixo tenta de novo.
+      video.play().then(() => video.pause()).catch(() => {})
+    }
 
     const onMeta = () => {
       if (Number.isFinite(video.duration) && video.duration > 0) {
         durationRef.current = video.duration
       }
-      video.play().then(() => video.pause()).catch(() => {})
+      prime()
       ScrollTrigger.refresh()
     }
 
     if (video.readyState >= 1) onMeta()
     else video.addEventListener('loadedmetadata', onMeta, { once: true })
 
-    return () => video.removeEventListener('loadedmetadata', onMeta)
+    // Rede de segurança para o iOS: alguns contextos só liberam a mídia após um
+    // gesto do usuário, e aí o primeiro scroll pegaria o vídeo ainda parado.
+    window.addEventListener('touchstart', prime, { once: true, passive: true })
+    window.addEventListener('pointerdown', prime, { once: true })
+
+    return () => {
+      video.removeEventListener('loadedmetadata', onMeta)
+      window.removeEventListener('touchstart', prime)
+      window.removeEventListener('pointerdown', prime)
+    }
   }, [staticMode])
 
   useIsomorphicLayoutEffect(() => {
@@ -156,6 +171,10 @@ export function ExplodedBurgerHero() {
             onUpdate: () => {
               const video = videoRef.current
               if (!video || video.readyState < 1) return
+              // Escrever em currentTime com um seek ainda em curso empilha
+              // pedidos e trava a decodificação no Safari. Melhor perder o
+              // quadro intermediário: o próximo tick já escreve o valor atual.
+              if (video.seeking) return
               if (Math.abs(video.currentTime - seek.time) > 1 / 48) {
                 video.currentTime = seek.time
               }
@@ -287,7 +306,7 @@ export function ExplodedBurgerHero() {
         )}
 
         {/* Calor da marca por cima da cena filmada */}
-        <AmbientBackdrop layer="glow" animated={!prefersReducedMotion} particles={isLowPerf ? 8 : 18} />
+        <AmbientBackdrop layer="glow" animated={!prefersReducedMotion} particles={isConstrained ? 8 : 18} />
 
         {/* Véus de leitura: o texto precisa sobreviver a qualquer frame do vídeo */}
         <div
