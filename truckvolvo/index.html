@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TruckVolvo Vilhena | Mecânica Especializada em Caminhões Volvo</title>
-  <meta name="description" content="Oficina mecânica especializada em caminhões Volvo em Vilhena - RO. Rua Paranaguá, 617. Seg a Sex 07:30–17:30, Sáb 07:30–11:30.">
+  <meta name="description" content="Desde 2020: peças e serviços para caminhões Volvo em Vilhena - RO. Rua Paranaguá, 617. Seg a Sex 07:30–17:30, Sáb 07:30–11:30.">
   <meta name="theme-color" content="#0d0d0d">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -166,6 +166,24 @@
     .statement .w { display: inline-block; opacity: .16; }
     .statement .w.hl { color: var(--blue); }
 
+    /* ---------- História ---------- */
+    .history { padding: 140px var(--gutter) 120px; display: grid; grid-template-columns: 1.15fr 1fr; gap: 64px; align-items: start; }
+    .history-title { font-size: clamp(2.4rem, 9vw, 8rem); font-weight: 800; margin: 18px 0 28px; }
+    .history-title .blue { color: var(--blue); }
+    .history-lead { font-size: clamp(1.05rem, 1.5vw, 1.3rem); color: var(--muted); max-width: 46ch; }
+    .history-lead strong { color: var(--text); font-weight: 600; }
+    .values { display: flex; flex-wrap: wrap; gap: 10px; margin: 32px 0; }
+    .values li { list-style: none; padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(0,163,224,.4); background: rgba(0,163,224,.08); font-size: 14px; font-weight: 500; }
+    .faith { font-size: 14px; color: var(--muted); font-style: italic; border-left: 2px solid var(--blue); padding-left: 14px; max-width: 46ch; }
+    .history-side { display: grid; gap: 14px; }
+    .stat { padding: 28px; border-radius: 20px; background: linear-gradient(135deg, rgba(0,163,224,.22), rgba(0,85,165,.18)); border: 1px solid rgba(0,163,224,.4); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+    .stat b { display: block; font-family: "Syne", sans-serif; text-transform: uppercase; font-size: clamp(3.5rem, 7vw, 6rem); line-height: .9; }
+    .stat span { color: var(--muted); }
+    .founder { display: flex; align-items: center; gap: 16px; padding: 20px; border-radius: 16px; background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+    .avatar { width: 56px; height: 56px; flex: none; border-radius: 50%; display: grid; place-items: center; font-family: "Syne", sans-serif; font-weight: 700; background: linear-gradient(135deg, var(--blue), var(--blue-deep)); }
+    .founder h3 { font-family: "Syne", sans-serif; font-size: 1.15rem; text-transform: uppercase; line-height: 1.1; }
+    .founder p { color: var(--muted); font-size: 14px; }
+
     /* ---------- Contato ---------- */
     .contact { min-height: 100vh; padding: 140px var(--gutter) 80px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
     .contact-title { font-size: clamp(2rem, 8vw, 6.5rem); font-weight: 800; margin: 18px 0 28px; }
@@ -201,7 +219,8 @@
     /* ---------- Responsivo ---------- */
     @media (max-width: 900px) {
       .nav-links { display: none; }
-      .contact { grid-template-columns: 1fr; }
+      .contact, .history { grid-template-columns: 1fr; }
+      .history { gap: 40px; }
       .map { aspect-ratio: 4 / 3; }
       .cards { flex-direction: column; width: 100%; }
       .card { width: 100%; min-height: 0; }
@@ -237,7 +256,7 @@
     </a>
     <nav class="nav-links" aria-label="Principal">
       <a href="#servicos">Serviços</a>
-      <a href="#oficina">A Oficina</a>
+      <a href="#historia">História</a>
       <a href="#contato">Contato</a>
     </nav>
     <a class="btn" href="https://wa.me/5569984573574?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener">
@@ -249,7 +268,7 @@
   <main>
     <!-- 1. HERO -->
     <section class="hero" id="inicio" data-bg="0">
-      <span class="eyebrow reveal"><span>Oficina de caminhões · Vilhena / RO</span></span>
+      <span class="eyebrow reveal"><span>Desde 2020 · Vilhena / RO</span></span>
       <h1 class="hero-title display">
         <span class="reveal"><span>Truck</span></span>
         <span class="reveal"><span class="accent">Volvo</span></span>
@@ -269,8 +288,8 @@
 
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track">
-        <span>Especializada em Volvo</span><span>Diagnóstico</span><span>Motor</span><span>Elétrica</span><span>Freios</span><span>Suspensão</span><span>Revisão</span>
-        <span>Especializada em Volvo</span><span>Diagnóstico</span><span>Motor</span><span>Elétrica</span><span>Freios</span><span>Suspensão</span><span>Revisão</span>
+        <span>Especializada em Volvo</span><span>Peças</span><span>Diagnóstico</span><span>Motor</span><span>Elétrica</span><span>Freios</span><span>Suspensão</span><span>Revisão</span>
+        <span>Especializada em Volvo</span><span>Peças</span><span>Diagnóstico</span><span>Motor</span><span>Elétrica</span><span>Freios</span><span>Suspensão</span><span>Revisão</span>
       </div>
     </div>
 
@@ -315,13 +334,48 @@
           <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg></div>
           <div><h3>Revisão Preventiva</h3><p>Checklist completo para evitar quebra na estrada e paradas inesperadas.</p></div>
         </article>
+        <article class="card">
+          <span class="card-num">07</span>
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></div>
+          <div><h3>Peças</h3><p>Peças para a linha Volvo, com a mesma credibilidade do nosso serviço.</p></div>
+        </article>
       </div>
       <div class="progress" aria-hidden="true"><i id="progress"></i></div>
     </section>
 
     <!-- 3. MANIFESTO (texto revelado palavra a palavra) -->
     <section class="statement" id="oficina" data-bg="2">
-      <p id="statement">Caminhão parado é prejuízo. Aqui o seu Volvo é tratado por quem entende de Volvo, com diagnóstico preciso e serviço feito para voltar à estrada.</p>
+      <p id="statement">Cada caminhão parado é um sonho em espera. Por isso o seu Volvo é tratado por quem tem a Volvo no currículo.</p>
+    </section>
+
+    <!-- 3b. HISTÓRIA -->
+    <section class="history" id="historia" data-bg="2">
+      <div>
+        <span class="eyebrow reveal"><span>Nossa história</span></span>
+        <h2 class="history-title display">
+          <span class="reveal"><span>Desde</span></span>
+          <span class="reveal"><span class="blue">2020</span></span>
+        </h2>
+        <p class="history-lead reveal"><span>A Truck‑Volvo nasceu da visão de quem entende a fundo o que é viver da estrada. <strong>Robson da Silva</strong> decidiu empreender ao perceber uma realidade que muitos caminhoneiros enfrentam: a falta de transparência e eficiência nos atendimentos. Com o sócio <strong>Adenilson Luiz</strong>, fundou uma operação voltada à linha pesada com excelência, credibilidade e preço justo.</span></p>
+        <ul class="values">
+          <li class="h-stagger">Transparência</li>
+          <li class="h-stagger">Agilidade</li>
+          <li class="h-stagger">Preço justo</li>
+          <li class="h-stagger">Respeito ao cliente</li>
+        </ul>
+        <p class="faith h-stagger">Atuamos com base nos princípios e valores de Deus, o alicerce da nossa caminhada.</p>
+      </div>
+      <div class="history-side">
+        <div class="stat h-stagger"><b><span id="years">17</span> anos</b><span>de experiência na Volvo do nosso fundador</span></div>
+        <div class="founder h-stagger">
+          <div class="avatar" aria-hidden="true">RS</div>
+          <div><h3>Robson da Silva</h3><p>Fundador · 17 anos de experiência na Volvo</p></div>
+        </div>
+        <div class="founder h-stagger">
+          <div class="avatar" aria-hidden="true">AL</div>
+          <div><h3>Adenilson Luiz</h3><p>Sócio · vivência na Volvo</p></div>
+        </div>
+      </div>
     </section>
 
     <!-- 4. LOCALIZAÇÃO E CONTATO -->
@@ -367,7 +421,7 @@
   </main>
 
   <footer>
-    <span>© <span id="year"></span> TruckVolvo Vilhena · Mecânica Especializada em Volvo</span>
+    <span>© <span id="year"></span> TruckVolvo Vilhena · Peças e Serviços com Credibilidade</span>
     <a href="https://instagram.com/truckvolvo.vha" target="_blank" rel="noopener">@truckvolvo.vha</a>
   </footer>
 
@@ -375,9 +429,9 @@
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-4-3.5c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c1.9.8 2.7.9 3.6.7a3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.1-.3-.2-.6-.3zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8zM12 0a12 12 0 0 0-10.3 18L0 24l6.2-1.6A12 12 0 1 0 12 0z"/></svg>
   </a>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" integrity="sha384-B2WBjDzEjJpYvhmi2UyEn7rektqkf5suS6sNoyyrf0EBAwBHdkiXxIlU0V5Ru2ed" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
     (function () {
       document.getElementById('year').textContent = new Date().getFullYear();
@@ -409,7 +463,7 @@
 
       // Divide o manifesto em palavras
       const st = document.getElementById('statement');
-      const highlight = ['volvo', 'volvo,', 'estrada.', 'prejuízo.'];
+      const highlight = ['sonho', 'espera.', 'volvo', 'currículo.'];
       st.innerHTML = st.textContent.trim().split(/\s+/).map(w =>
         `<span class="w${highlight.includes(w.toLowerCase()) ? ' hl' : ''}">${w}</span>`).join(' ');
 
@@ -487,6 +541,18 @@
       gsap.to('#statement .w', {
         opacity: 1, ease: 'none', stagger: 0.1,
         scrollTrigger: { trigger: '.statement', start: 'top 70%', end: 'bottom 75%', scrub: true }
+      });
+
+      // ---- História: stagger + contador ----
+      gsap.from('.history .h-stagger', {
+        y: 50, opacity: 0, duration: 1, ease: 'expo.out', stagger: 0.08,
+        scrollTrigger: { trigger: '.history', start: 'top 65%', once: true }
+      });
+      const years = { v: 0 };
+      gsap.to(years, {
+        v: 17, duration: 1.8, ease: 'power2.out', snap: { v: 1 },
+        onUpdate: () => { document.getElementById('years').textContent = years.v; },
+        scrollTrigger: { trigger: '.stat', start: 'top 85%', once: true }
       });
 
       // ---- Contato: stagger ----
