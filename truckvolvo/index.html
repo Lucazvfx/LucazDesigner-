@@ -128,6 +128,7 @@
       font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: var(--blue);
     }
     .eyebrow::before { content: ""; width: 28px; height: 1px; background: currentColor; }
+    .hero .eyebrow > span { background: rgba(13,13,13,.62); padding: 7px 14px; border-radius: 999px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #5cc8f0; }
     .hero-title { font-size: clamp(3.2rem, min(24vw, 21vh), 20rem); margin: 20px 0 28px; }
     .hero-title .serif { font-size: 1.08em; line-height: .8; }
     .hero-bottom { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 28px; }
@@ -162,7 +163,7 @@
       backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);
       border: 1px solid var(--line);
       position: relative; overflow: hidden;
-      transition: border-color .4s, transform .5s var(--ease);
+      transition: border-color .4s;
     }
     .card::before {
       content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .5s;
@@ -181,7 +182,7 @@
     /* ---------- Manifesto ---------- */
     .statement { min-height: 130vh; display: flex; align-items: center; justify-content: center; padding: 120px var(--gutter); text-align: center; }
     .statement p { font-family: "Mona Sans", sans-serif; font-stretch: 82%; font-weight: 800; font-size: clamp(2.2rem, 6.4vw, 6.2rem); line-height: .95; text-transform: uppercase; letter-spacing: -0.015em; max-width: 17ch; }
-    .statement .w { display: inline-block; opacity: .14; }
+    .statement .w { display: inline-block; opacity: .24; }
     .statement .w.hl { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-stretch: normal; color: var(--blue); font-size: 1.08em; }
 
     /* ---------- História ---------- */
@@ -208,6 +209,7 @@
     .info-item { display: flex; gap: 16px; padding: 20px; border-radius: 16px; background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
     .info-item svg { width: 22px; height: 22px; flex: none; stroke: var(--blue); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; margin-top: 2px; }
     .info-item small { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .14em; color: var(--muted); margin-bottom: 4px; }
+    .info-item a { display: inline-flex; align-items: center; min-height: 44px; }
     .info-item a:hover { color: var(--blue); }
     .hours { display: grid; grid-template-columns: auto 1fr; gap: 2px 18px; }
     .hours span:nth-child(odd) { color: var(--muted); }
@@ -229,15 +231,16 @@
     .fbrand p { font-family: "Mona Sans", sans-serif; font-stretch: 82%; font-weight: 800; text-transform: uppercase; font-size: clamp(2.2rem, 4.4vw, 3.6rem); line-height: .86; letter-spacing: -0.015em; }
     .fcol h4 { font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--blue); font-weight: 600; margin-bottom: 14px; }
     .fcol p, .fcol a { display: block; font-size: 15px; line-height: 1.8; color: #d4d4d4; }
+    .fcol a { display: flex; align-items: center; min-height: 44px; }
     .fcol a:hover { color: var(--blue); }
-    .legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; border-top: 1px solid var(--line); padding-top: 22px; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #6a6a6a; }
+    .legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; border-top: 1px solid var(--line); padding-top: 22px; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #8f8f8f; }
 
     /* ---------- Carregamento ---------- */
     #loader { position: fixed; inset: 0; z-index: 100; background: #050505; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; animation: loaderOut .6s ease 3.2s forwards; }
     #loader img { width: 104px; height: 104px; border-radius: 50%; box-shadow: 0 0 0 2px rgba(0,163,224,.5), 0 0 60px -10px rgba(0,163,224,.7); }
     .load-bar { width: 180px; height: 2px; background: #1d1d20; overflow: hidden; }
     .load-bar i { display: block; height: 100%; width: 0; background: var(--blue); }
-    .load-num { font-size: 11px; letter-spacing: .3em; color: #6a6a6a; font-variant-numeric: tabular-nums; }
+    .load-num { font-size: 11px; letter-spacing: .3em; color: #8f8f8f; font-variant-numeric: tabular-nums; }
     @keyframes loaderOut { to { opacity: 0; visibility: hidden; } }
 
     /* ---------- Cursor ---------- */
@@ -262,6 +265,15 @@
     @keyframes ping { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.6); opacity: 0; } }
 
     /* ---------- Responsivo ---------- */
+    @media (min-width: 901px) {
+      .services { height: 100vh; min-height: 0; padding: clamp(72px, 11vh, 120px) 0 clamp(24px, 4vh, 48px); }
+      .services .section-title { font-size: clamp(2.2rem, min(8.4vw, 10.5vh), 7.5rem); }
+      .services .section-head { margin-bottom: clamp(20px, 4vh, 48px); }
+      .services .card { min-height: clamp(230px, 36vh, 360px); padding: clamp(20px, 3vh, 28px); }
+      .services .card h3 { margin-top: clamp(14px, 3vh, 32px); }
+      .services .card-icon { margin-top: clamp(14px, 2.5vh, 28px); }
+      .services .progress { margin-top: clamp(18px, 3.5vh, 40px); }
+    }
     @media (max-width: 900px) {
       .nav-links { display: none; }
       .contact, .history { grid-template-columns: 1fr; }
@@ -270,10 +282,12 @@
       .card { width: 100%; min-height: 0; }
       .card-icon { margin-bottom: 0; }
       .progress { display: none; }
+      .wa-float { width: 52px; height: 52px; right: 14px; bottom: 14px; }
+      .wa-float svg { width: 26px; height: 26px; }
     }
     @media (max-width: 480px) {
       .nav .btn span { display: none; }
-      .nav .btn { padding: 10px; }
+      .nav .btn { padding: 10px; width: 44px; height: 44px; justify-content: center; }
     }
     @media (prefers-reduced-motion: reduce) {
       .marquee-track, .wa-float::before, .scroll-hint i::after { animation: none; }
