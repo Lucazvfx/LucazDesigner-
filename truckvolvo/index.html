@@ -77,6 +77,7 @@
     }
 
     main, header, footer { position: relative; z-index: 2; }
+    main { overflow-x: clip; }
 
     /* ---------- Nav ---------- */
     .nav {
@@ -138,10 +139,13 @@
     @keyframes drip { to { top: 100%; } }
 
     /* ---------- Marquee ---------- */
-    .marquee { border-block: 1px solid var(--line); background: rgba(13,13,13,.55); backdrop-filter: blur(6px); overflow: hidden; padding: 18px 0; }
+    .marquee { position: relative; z-index: 3; border-block: 1px solid var(--line); background: var(--bg-2); overflow: hidden; padding: 16px 0; }
+    .marquee.skew { transform: rotate(-2.4deg) scale(1.06); margin: 72px 0; }
+    .marquee.skew.rev { transform: rotate(2deg) scale(1.06); }
+    .marquee em { font-style: normal; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.55); }
     .marquee-track { display: flex; width: max-content; gap: 48px; animation: marquee 32s linear infinite; }
-    .marquee span { font-family: "Mona Sans", sans-serif; font-stretch: 85%; font-weight: 700; text-transform: uppercase; font-size: clamp(1.1rem, 2.4vw, 1.8rem); white-space: nowrap; display: flex; align-items: center; gap: 48px; }
-    .marquee span::after { content: "✦"; color: var(--blue); font-size: .7em; }
+    .marquee span { font-family: "Mona Sans", sans-serif; font-stretch: 82%; font-weight: 800; text-transform: uppercase; font-size: clamp(2rem, 5.6vw, 5rem); line-height: 1; white-space: nowrap; display: flex; align-items: center; gap: 48px; }
+    .marquee span::after { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 18px var(--blue); flex: none; }
     @keyframes marquee { to { transform: translateX(-50%); } }
 
     /* ---------- Serviços (pinned) ---------- */
@@ -218,8 +222,32 @@
     .map { border-radius: 20px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16 / 9; background: var(--bg-2); }
     .map iframe { width: 100%; height: 100%; border: 0; filter: grayscale(1) invert(.92) contrast(.9) hue-rotate(180deg); }
 
-    footer { border-top: 1px solid var(--line); background: var(--bg); padding: 28px var(--gutter); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); }
-    footer a:hover { color: var(--blue); }
+    footer { border-top: 1px solid var(--line); background: var(--bg); padding: clamp(48px, 7vw, 88px) var(--gutter) 32px; display: grid; gap: 40px; grid-template-columns: 1fr; }
+    @media (min-width: 900px) { footer { grid-template-columns: 1.4fr 1fr 1fr 1fr; align-items: start; } }
+    .fbrand { display: flex; align-items: center; gap: 18px; }
+    .fbrand img { width: 72px; height: 72px; border-radius: 50%; }
+    .fbrand p { font-family: "Mona Sans", sans-serif; font-stretch: 82%; font-weight: 800; text-transform: uppercase; font-size: clamp(2.2rem, 4.4vw, 3.6rem); line-height: .86; letter-spacing: -0.015em; }
+    .fcol h4 { font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--blue); font-weight: 600; margin-bottom: 14px; }
+    .fcol p, .fcol a { display: block; font-size: 15px; line-height: 1.8; color: #d4d4d4; }
+    .fcol a:hover { color: var(--blue); }
+    .legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; border-top: 1px solid var(--line); padding-top: 22px; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #6a6a6a; }
+
+    /* ---------- Carregamento ---------- */
+    #loader { position: fixed; inset: 0; z-index: 100; background: #050505; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; animation: loaderOut .6s ease 3.2s forwards; }
+    #loader img { width: 104px; height: 104px; border-radius: 50%; box-shadow: 0 0 0 2px rgba(0,163,224,.5), 0 0 60px -10px rgba(0,163,224,.7); }
+    .load-bar { width: 180px; height: 2px; background: #1d1d20; overflow: hidden; }
+    .load-bar i { display: block; height: 100%; width: 0; background: var(--blue); }
+    .load-num { font-size: 11px; letter-spacing: .3em; color: #6a6a6a; font-variant-numeric: tabular-nums; }
+    @keyframes loaderOut { to { opacity: 0; visibility: hidden; } }
+
+    /* ---------- Cursor ---------- */
+    .cur, .cur-dot { position: fixed; top: 0; left: 0; z-index: 95; pointer-events: none; border-radius: 50%; mix-blend-mode: difference; opacity: 0; transition: opacity .3s; }
+    .cur { width: 40px; height: 40px; margin: -20px 0 0 -20px; border: 1px solid #fff; transition: width .35s var(--ease), height .35s var(--ease), margin .35s var(--ease), background .35s, opacity .3s; }
+    .cur-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: #fff; }
+    body.cur-ready .cur, body.cur-ready .cur-dot { opacity: 1; }
+    body.cur-on .cur { width: 84px; height: 84px; margin: -42px 0 0 -42px; background: #fff; }
+    body.cur-hide .cur, body.cur-hide .cur-dot { opacity: 0; }
+    @media (hover: none), (pointer: coarse) { .cur, .cur-dot { display: none; } }
 
     /* ---------- WhatsApp flutuante ---------- */
     .wa-float {
@@ -249,6 +277,7 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .marquee-track, .wa-float::before, .scroll-hint i::after { animation: none; }
+      #loader, .cur, .cur-dot { display: none; }
       .statement .w { opacity: 1; }
     }
   </style>
@@ -280,6 +309,14 @@
   </script>
 </head>
 <body>
+
+  <div id="loader" aria-hidden="true">
+    <img src="logo-192.png" width="104" height="104" alt="">
+    <div class="load-bar"><i></i></div>
+    <div class="load-num">CARREGANDO <span>0</span>%</div>
+  </div>
+  <div class="cur" aria-hidden="true"></div>
+  <div class="cur-dot" aria-hidden="true"></div>
 
   <!-- Fundo fixo: uma camada por secção (data-bg) -->
   <div class="bg-stage" aria-hidden="true">
@@ -328,16 +365,17 @@
       </div>
     </section>
 
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee-track">
-        <span>Especializada em Volvo</span><span>Câmbio</span><span>Arla 32</span><span>Diferencial</span><span>Motores</span><span>Diagnóstico</span><span>Elétrica</span><span>Peças</span>
-        <span>Especializada em Volvo</span><span>Câmbio</span><span>Arla 32</span><span>Diferencial</span><span>Motores</span><span>Diagnóstico</span><span>Elétrica</span><span>Peças</span>
+    <div class="marquee skew" aria-hidden="true">
+      <div class="marquee-track" data-dir="-1">
+        <span>Especializada em Volvo</span><span><em>Câmbio</em></span><span>Arla 32</span><span><em>Diferencial</em></span><span>Motores</span><span><em>Diagnóstico</em></span><span>Elétrica</span><span><em>Peças</em></span>
+        <span>Especializada em Volvo</span><span><em>Câmbio</em></span><span>Arla 32</span><span><em>Diferencial</em></span><span>Motores</span><span><em>Diagnóstico</em></span><span>Elétrica</span><span><em>Peças</em></span>
       </div>
     </div>
 
     <!-- 2. ESPECIALIDADES (secção fixada, cards deslizam) -->
     <section class="services" id="servicos" data-bg="1">
       <div class="section-head">
+        <span class="eyebrow reveal" style="flex-basis:100%"><span>01 / Especialidades</span></span>
         <h2 class="section-title display">
           <span class="reveal"><span>Nossas</span></span>
           <span class="reveal"><span class="serif">Especialidades</span></span>
@@ -393,7 +431,7 @@
     <!-- 3b. HISTÓRIA -->
     <section class="history" id="historia" data-bg="2">
       <div>
-        <span class="eyebrow reveal"><span>Nossa história</span></span>
+        <span class="eyebrow reveal"><span>02 / Nossa história</span></span>
         <h2 class="history-title display">
           <span class="reveal"><span>Desde</span></span>
           <span class="reveal"><span class="serif">2020</span></span>
@@ -420,10 +458,17 @@
       </div>
     </section>
 
+    <div class="marquee skew rev" aria-hidden="true">
+      <div class="marquee-track" data-dir="1">
+        <span>Desde 2020</span><span><em>Vilhena / RO</em></span><span>Peças e serviços</span><span><em>Linha pesada</em></span><span>Com credibilidade</span><span><em>Setor 13</em></span>
+        <span>Desde 2020</span><span><em>Vilhena / RO</em></span><span>Peças e serviços</span><span><em>Linha pesada</em></span><span>Com credibilidade</span><span><em>Setor 13</em></span>
+      </div>
+    </div>
+
     <!-- 4. LOCALIZAÇÃO E CONTATO -->
     <section class="contact" id="contato" data-bg="3">
       <div>
-        <span class="eyebrow reveal"><span>Visite a oficina</span></span>
+        <span class="eyebrow reveal"><span>03 / Visite a oficina</span></span>
         <h2 class="contact-title display">
           <span class="reveal"><span>Estamos</span></span>
           <span class="reveal"><span class="serif">em Vilhena</span></span>
@@ -469,8 +514,30 @@
   </main>
 
   <footer>
-    <span>© <span id="year"></span> TruckVolvo Vilhena · Peças e Serviços com Credibilidade</span>
-    <a href="https://instagram.com/truckvolvo.vha" target="_blank" rel="noopener">@truckvolvo.vha</a>
+    <div class="fbrand">
+      <img src="logo-192.png" width="72" height="72" alt="Logotipo Truck-Volvo">
+      <p>Truck‑Volvo<br><span class="serif">Vilhena</span></p>
+    </div>
+    <div class="fcol">
+      <h4>Onde</h4>
+      <p>Rua Paranaguá, 617</p>
+      <p>Setor 13 · Vilhena – RO</p>
+      <p>CEP 76987-674</p>
+    </div>
+    <div class="fcol">
+      <h4>Horário</h4>
+      <p>Seg – Sex · 07:30 – 17:30</p>
+      <p>Sábado · 07:30 – 11:30</p>
+    </div>
+    <div class="fcol">
+      <h4>Contato</h4>
+      <a href="https://wa.me/5569984573574" target="_blank" rel="noopener">(69) 98457‑3574</a>
+      <a href="https://instagram.com/truckvolvo.vha" target="_blank" rel="noopener">@truckvolvo.vha</a>
+    </div>
+    <div class="legal">
+      <span>© <span id="year"></span> Truck‑Volvo · Peças e Serviços com Credibilidade</span>
+      <span>Especializada em Volvo · Desde 2020</span>
+    </div>
   </footer>
 
   <a class="wa-float" href="https://wa.me/5569984573574?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
@@ -520,7 +587,8 @@
 
       // Sem GSAP (CDN bloqueado) ou com movimento reduzido: página fica estática e legível
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!window.gsap || !window.ScrollTrigger || reduce) return;
+      const loader = document.getElementById('loader');
+      if (!window.gsap || !window.ScrollTrigger || reduce) { if (loader) loader.remove(); return; }
 
       gsap.registerPlugin(ScrollTrigger);
 
@@ -546,24 +614,70 @@
       // ---- Parallax contínuo das imagens de fundo ----
       gsap.to('.bg-layer img', { yPercent: -10, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: true } });
 
-      // ---- Faixa de texto acelera com a velocidade do scroll ----
-      const track = document.querySelector('.marquee-track');
-      track.style.animation = 'none';
-      const loop = gsap.to(track, { xPercent: -50, duration: 32, ease: 'none', repeat: -1 });
+      // ---- Faixas de texto em sentidos opostos, aceleram com o scroll ----
+      const loops = gsap.utils.toArray('.marquee-track').map(track => {
+        track.style.animation = 'none';
+        const dir = +track.dataset.dir || -1;
+        return gsap.fromTo(track, { xPercent: dir < 0 ? 0 : -50 },
+          { xPercent: dir < 0 ? -50 : 0, duration: 36, ease: 'none', repeat: -1 });
+      });
       ScrollTrigger.create({
         start: 0, end: 'max',
         onUpdate: self => {
           const boost = Math.min(Math.abs(self.getVelocity()) / 250, 6);
-          gsap.to(loop, { timeScale: 1 + boost, duration: 0.2, overwrite: true });
-          gsap.to(loop, { timeScale: 1, duration: 1.2, delay: 0.2, ease: 'power2.out' });
+          loops.forEach(loop => {
+            gsap.to(loop, { timeScale: 1 + boost, duration: 0.2, overwrite: true });
+            gsap.to(loop, { timeScale: 1, duration: 1.2, delay: 0.2, ease: 'power2.out' });
+          });
         }
       });
 
-      // ---- Hero: entrada ----
+      // ---- Cursor (só com rato) ----
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        const ring = document.querySelector('.cur'), dot = document.querySelector('.cur-dot');
+        const rx = gsap.quickTo(ring, 'x', { duration: 0.45, ease: 'power3' }), ry = gsap.quickTo(ring, 'y', { duration: 0.45, ease: 'power3' });
+        const dx = gsap.quickTo(dot, 'x', { duration: 0.08 }), dy = gsap.quickTo(dot, 'y', { duration: 0.08 });
+        window.addEventListener('pointermove', e => {
+          rx(e.clientX); ry(e.clientY); dx(e.clientX); dy(e.clientY);
+          document.body.classList.add('cur-ready');
+          document.body.classList.remove('cur-hide');
+        });
+        document.addEventListener('mouseleave', () => document.body.classList.add('cur-hide'));
+        document.querySelectorAll('a, button, .card, .facade').forEach(el => {
+          el.addEventListener('mouseenter', () => document.body.classList.add('cur-on'));
+          el.addEventListener('mouseleave', () => document.body.classList.remove('cur-on'));
+        });
+      }
+
+      // ---- Hero: preparado atrás do carregamento, entra quando ele sai ----
       const heroLines = gsap.utils.toArray('.hero .reveal > span');
       gsap.set(heroLines, { yPercent: 115, rotate: 4 });
-      gsap.to(heroLines, { yPercent: 0, rotate: 0, duration: 1.4, ease: 'expo.out', stagger: 0.09, delay: 0.15 });
-      gsap.from('.bg-layer:first-child', { scale: 1.2, duration: 2.4, ease: 'expo.out' });
+      const intro = () => {
+        gsap.to(heroLines, { yPercent: 0, rotate: 0, duration: 1.4, ease: 'expo.out', stagger: 0.09 });
+        gsap.from('.bg-layer:first-child', { scale: 1.2, duration: 2.4, ease: 'expo.out' });
+      };
+
+      // ---- Carregamento: conta até 100 e sobe ----
+      if (loader) {
+        loader.style.animation = 'none';
+        const num = loader.querySelector('.load-num span'), bar = loader.querySelector('.load-bar i');
+        const prog = { v: 0 };
+        let done = false;
+        const leave = () => {
+          if (done) return; done = true;
+          gsap.to(prog, { v: 100, duration: 0.3, onUpdate: paint, onComplete: () => {
+            gsap.to(loader, { yPercent: -100, duration: 0.9, ease: 'expo.inOut', onComplete: () => { loader.remove(); ScrollTrigger.refresh(); } });
+            gsap.delayedCall(0.45, intro);
+          } });
+        };
+        function paint() { num.textContent = Math.round(prog.v); bar.style.width = prog.v + '%'; }
+        gsap.to(prog, { v: 90, duration: 1.6, ease: 'power2.out', onUpdate: paint });
+        if (document.readyState === 'complete') gsap.delayedCall(1.2, leave);
+        else window.addEventListener('load', () => gsap.delayedCall(0.3, leave));
+        gsap.delayedCall(3, leave);
+      } else {
+        intro();
+      }
 
       // Hero: título afasta-se ao rolar
       gsap.to('.hero-title', {
