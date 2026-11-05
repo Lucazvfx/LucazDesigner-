@@ -118,6 +118,41 @@
     .btn--ghost:hover { background: rgba(255,255,255,.06); box-shadow: none; }
     .nav .btn { padding: 10px 18px; font-size: 14px; }
 
+    /* ---------- Vidro líquido (versão web do Liquid Glass) ---------- */
+    .btn--glass {
+      position: relative; isolation: isolate; overflow: hidden;
+      color: #fff; font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,.35);
+      background: linear-gradient(135deg, rgba(0,163,224,.42) 0%, rgba(0,85,165,.26) 55%, rgba(0,163,224,.34) 100%);
+      backdrop-filter: blur(10px) saturate(190%) brightness(1.08);
+      -webkit-backdrop-filter: blur(10px) saturate(190%) brightness(1.08);
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,.6),
+        inset 0 -1px 0 rgba(255,255,255,.18),
+        inset 0 0 0 1px rgba(255,255,255,.22),
+        inset 0 -14px 24px -12px rgba(0,163,224,.55),
+        0 12px 30px -12px rgba(0,0,0,.65),
+        0 0 26px -8px rgba(0,163,224,.75);
+      transition: transform .5s var(--ease), box-shadow .4s, background .4s;
+      --gx: 30%; --gy: 0%;
+    }
+    .hero-cta.reveal { padding: 30px; margin: -30px; }
+    .refract .btn--glass {
+      backdrop-filter: url(#glass-refract) blur(3px) saturate(190%) brightness(1.08);
+    }
+    .btn--glass::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+      background: radial-gradient(120px circle at var(--gx) var(--gy), rgba(255,255,255,.55), rgba(255,255,255,0) 60%);
+      opacity: .55; transition: opacity .35s;
+    }
+    .btn--glass::after {
+      content: ""; position: absolute; left: 10%; right: 10%; top: 1px; height: 46%; z-index: -1; border-radius: 999px; pointer-events: none;
+      background: linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,0));
+    }
+    .btn--glass:hover { background: linear-gradient(135deg, rgba(0,163,224,.55) 0%, rgba(0,85,165,.34) 55%, rgba(0,163,224,.46) 100%); transform: translateY(-2px) scale(1.03); box-shadow: inset 0 1.5px 0 rgba(255,255,255,.7), inset 0 -1px 0 rgba(255,255,255,.2), inset 0 0 0 1px rgba(255,255,255,.3), inset 0 -14px 24px -12px rgba(0,163,224,.7), 0 16px 36px -12px rgba(0,0,0,.7), 0 0 36px -6px rgba(0,163,224,.9); }
+    .btn--glass:hover::before { opacity: 1; }
+    .btn--glass:active { transform: scale(.97); }
+    .btn--glass svg { filter: drop-shadow(0 1px 2px rgba(0,0,0,.35)); }
+
     /* ---------- Revelação de texto ---------- */
     .reveal { display: block; overflow: hidden; padding-bottom: .04em; }
     .reveal > span { display: inline-block; will-change: transform; transform-origin: 0 100%; }
@@ -354,6 +389,13 @@
     <div class="load-bar"><i></i></div>
     <div class="load-num">CARREGANDO <span>0</span>%</div>
   </div>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="glass-refract" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.022" numOctaves="2" seed="11" result="noise"/>
+      <feGaussianBlur in="noise" stdDeviation="2.5" result="soft"/>
+      <feDisplacementMap in="SourceGraphic" in2="soft" scale="34" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
   <div class="cur" aria-hidden="true"></div>
   <div class="cur-dot" aria-hidden="true"></div>
 
@@ -380,7 +422,7 @@
       <a href="#historia">História</a>
       <a href="#contato">Contato</a>
     </nav>
-    <a class="btn" href="https://wa.me/5569984573574?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener">
+    <a class="btn btn--glass" href="https://wa.me/5569984573574?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-4-3.5c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c1.9.8 2.7.9 3.6.7a3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.1-.3-.2-.6-.3zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8zM12 0a12 12 0 0 0-10.3 18L0 24l6.2-1.6A12 12 0 1 0 12 0z"/></svg>
       <span>Orçamento</span>
     </a>
@@ -400,7 +442,7 @@
       <div class="hero-bottom">
         <p class="hero-sub reveal"><span><strong>Mecânica especializada em caminhões Volvo.</strong> Câmbio, diferencial, motor, Arla e elétrica, com diagnóstico computadorizado.</span></p>
         <div class="hero-cta reveal"><span>
-          <a class="btn" href="https://wa.me/5569984573574?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener">
+          <a class="btn btn--glass" href="https://wa.me/5569984573574?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-4-3.5c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c1.9.8 2.7.9 3.6.7a3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.1-.3-.2-.6-.3zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8zM12 0a12 12 0 0 0-10.3 18L0 24l6.2-1.6A12 12 0 1 0 12 0z"/></svg>
             Falar no WhatsApp
           </a>
@@ -612,6 +654,19 @@
         el.querySelector('span').textContent = open ? 'Aberto agora' : 'Fechado agora';
       })();
 
+      // ---- Vidro líquido nos botões da capa ----
+      if (navigator.userAgentData && navigator.userAgentData.brands.some(b => /Chrom/.test(b.brand))) {
+        document.documentElement.classList.add('refract');
+      }
+      document.querySelectorAll('.btn--glass').forEach(btn => {
+        btn.addEventListener('pointermove', e => {
+          const r = btn.getBoundingClientRect();
+          btn.style.setProperty('--gx', (e.clientX - r.left) + 'px');
+          btn.style.setProperty('--gy', (e.clientY - r.top) + 'px');
+        });
+        btn.addEventListener('pointerleave', () => { btn.style.setProperty('--gx', '30%'); btn.style.setProperty('--gy', '0%'); });
+      });
+
       // Nav fica sólida ao rolar
       const nav = document.getElementById('nav');
       const onScroll = () => {
@@ -647,7 +702,7 @@
           hero.addEventListener('pointermove', e => {
             const b = hero.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top;
             place(x, y);
-            const onTruck = x > b.width * 0.42;
+            const onTruck = x > b.width * 0.42 && !e.target.closest('a, button');
             el.classList.toggle('on', onTruck);
             if (onTruck) hint.classList.add('off');
           });
@@ -717,7 +772,7 @@
           document.body.classList.remove('cur-hide');
         });
         document.addEventListener('mouseleave', () => document.body.classList.add('cur-hide'));
-        document.querySelectorAll('a, button, .card, .facade').forEach(el => {
+        document.querySelectorAll('a:not(.btn--glass), button, .card, .facade').forEach(el => {
           el.addEventListener('mouseenter', () => document.body.classList.add('cur-on'));
           el.addEventListener('mouseleave', () => document.body.classList.remove('cur-on'));
         });
